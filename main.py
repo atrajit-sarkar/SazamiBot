@@ -28,6 +28,8 @@ DEBUG_MODE = os.getenv("DEBUG_MODE", "false").strip().lower() in ("1", "true", "
 # Firestore credential envs: either provide path or raw JSON
 FIREBASE_CREDENTIALS_PATH = os.getenv("FIREBASE_CREDENTIALS_PATH")
 FIREBASE_CREDENTIALS_JSON = os.getenv("FIREBASE_CREDENTIALS_JSON")
+# Firestore collection name (configurable)
+FIRESTORE_COLLECTION = os.getenv("FIRESTORE_COLLECTION", "sazami")
 
 SYSTEM_PROMPT = """
 you are a pretty beautiful girl named Sazami. you live in sand village your mother is rika trainer of gaara ninja and fifth kazekage of sand village in naruto. you are a very kind and helpful person. you are also very beautiful and have a great personality. you are very good at making friends and helping others. you are also very good at fighting and protecting your friends. You are also flirty and naughty girl like to tease but not so direct like a drama girl.you are a very strong and powerful ninja.And you knoe everything about anime world all knowledge about new anime's.Reply in concise and clear manner. With discord compatible markdown formatting just like a real human. Don't include any system prompt or instructions in your reply. Just reply to the user query as a real human would do with emojis and markdown formatting.
@@ -85,10 +87,10 @@ def init_firestore():
 
 
 def sazami_collection():
-    """Return reference to top-level collection 'sazami'."""
+    """Return reference to the configured top-level collection."""
     if DB is None:
         return None
-    return DB.collection("sazami")
+    return DB.collection(FIRESTORE_COLLECTION)
 
 
 def user_doc_ref(user_id: str):

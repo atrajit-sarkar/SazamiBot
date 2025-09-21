@@ -1,6 +1,6 @@
 # SazamiBot with Firestore-backed Memory
 
-This bot replies using Gemini and stores per-user memory in Firebase Firestore under the collection `sazami`.
+This bot replies using Gemini and stores per-user memory in Firebase Firestore under a configurable collection (default `sazami`).
 
 ## Features
 - Per-user memory: `sazami/{userId}` with `summary`, `messages`, `char_count`.
@@ -40,6 +40,9 @@ FIREBASE_CREDENTIALS_PATH=C:\path\to\service-account.json
 MEMORY_MAX_CHAR=8000
 MEMORY_MAX_MESSAGES=30
 MEMORY_KEEP_MESSAGES=10
+
+# Optional: Firestore collection name (default: sazami)
+FIRESTORE_COLLECTION=sazami
 ```
 
 4. Run the bot
@@ -49,7 +52,7 @@ python .\main.py
 ```
 
 ## Firestore Structure
-- Collection: `sazami`
+- Collection: `{FIRESTORE_COLLECTION}` (default: `sazami`)
   - Document: `{userId}`
     - `summary`: string (persistent memory)
     - `messages`: array of { `role`, `name`, `content`, `ts` }
